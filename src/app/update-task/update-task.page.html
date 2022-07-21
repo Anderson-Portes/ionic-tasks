@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update Task</ion-title>
+    <ion-icon
+      name="close"
+      slot="end"
+      size="large"
+      (click)="dismis()"
+      class="ion-padding"
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-textarea
+        [(ngModel)]="taskName"
+        placeholder="Write your task here"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Priority</ion-label>
+      <ion-select [(ngModel)]="taskPriority">
+        <ion-select-option value="low">Low</ion-select-option>
+        <ion-select-option value="middle">Middle</ion-select-option>
+        <ion-select-option value="high">High</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item id="date">
+      <ion-icon name="calendar-outline" slot="start"></ion-icon>
+      <ion-label>Due Date</ion-label>
+      <ion-input
+        value="{{ taskDate | date: 'dd.MM.yyyy' }}"
+        class="ion-text-end"
+      ></ion-input>
+      <ion-popover trigger="date" alignment="center" size="cover">
+        <ng-template>
+          <ion-datetime
+            presentation="date"
+            [(ngModel)]="taskDate"
+          ></ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+      <ion-label>Category</ion-label>
+      <span>{{ taskCategory }}</span>
+    </ion-item>
+
+    <ion-item>
+      <ion-chip
+        *ngFor="let category of categories; let i = index"
+        (click)="selectedCategory(i)"
+      >
+        <ion-label>{{ category }}</ion-label>
+      </ion-chip>
+    </ion-item>
+
+    <ion-button class="ion-margin" expand="block" (click)="updateTask()"
+      >Update Task</ion-button
+    >
+  </ion-card>
+</ion-content>
